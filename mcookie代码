@@ -1,6 +1,9 @@
 #include <Microduino_ColorLED.h> //引用彩灯库
 #define PIN       D6         //彩灯引脚
 #define Light_PIN A0  //光照传感器接AO引脚
+#define mic_pin A2   //声音传感器接A2引脚
+#define buzzer_pin D8 //定义蜂鸣器驱动引脚
+#define buzzer_fre 600 //定义蜂鸣器输出频率
 #define NUM 1
 #define Light_value1 400
 #define Light_value2 800
@@ -34,6 +37,7 @@ Tem_Hum_S2  thermo; //调用Sensor-Tem&Hum传感器
 #define temp3    32
  
 float sensor_tem;//float定义基本数据单精度常量
+float sensor_voice=100; //定义噪声强度的最大值
 void TemRead();
 //
 
@@ -82,7 +86,7 @@ SoftwareSerial mySerial(2, 3); /* RX:D2, TX:D3 */
 #define PASSWORD    F("wyy612856wyy")
 #define HOST_NAME   F("api.heclouds.com")//域名
 #define HOST_PORT   (80)
-short open1=120,open2=220,thour=0,tminute=0;
+short open1=120,open2=220,thour=0,tminute=0,tstop=0;
 static const byte  GETDATA[]  PROGMEM = {
   "GET https://api.heclouds.com/devices/562167282/datapoints?datastream_id=status,state,hour,minute&limit=1 HTTP/1.1\r\nHost:api.heclouds.com\r\napi-key: dAvEnSiGWxAyDBKAQ8TtZODJqMM=\r\nConnection: close\r\n\r\n"
 };//关键头文件
@@ -114,7 +118,7 @@ wifi.createTCP(HOST_NAME, HOST_PORT);
      if(k==1)
      open2=temp;//闹钟 210开   220关
      if(k==2)
-     open1=temp;
+     open1=temp;//噪音开关
      if(k==3)
      tminute=temp;//分
       k++;
@@ -148,6 +152,8 @@ wifi.createTCP(HOST_NAME, HOST_PORT);
 void setup()                                //创建无返回值函数
 {
   Serial.begin(9600);
+    pinMode(mic_pin, INPUT); //声音传感器初始化
+    pinMode(buzzer_pin, OUTPUT);//蜂鸣器初始化
   pinMode(Light_PIN,INPUT);
   strip.begin();                 //彩灯初始化
   strip.setBrightness(60);       //设置彩灯亮度
@@ -196,6 +202,13 @@ void loop()                                  //无返回值loop函数
     //strip.show();
   }
 
+  //噪声检测
+  
+  if(analogRead(mic_pin)>sensor_voice)//若光强大于设置的最大值
+      {digitalWrite(PIN , HIGH);    //亮灯
+    delay(100);
+    digitalWrite(PIN,LOW);//灭灯
+    }
   //温湿度
 
   TemRead();//调用自定义函数
@@ -254,6 +267,8 @@ if (timeStatus() != timeNotSet) {
  {
   strip.setAllLED(255, 0, 0); 
     strip.show();
+   tone(buzzer_pin, buzzer_fre);   //驱动蜂鸣器
+    delay(100);
   }
   //
  
@@ -278,7 +293,7 @@ if (timeStatus() != timeNotSet) {
   } while( u8g.nextPage() );//u8glib规定的写法
   strip.setAllLED(0, 0, 0); 
     strip.show();
- 
+  noTone(buzzer_pin);//蜂鸣器不响
  }
  //
 
