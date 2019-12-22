@@ -1,4 +1,3 @@
-//js
 Page({
   data: {
     condition1: false,
@@ -75,24 +74,26 @@ Page({
     
     })
     wx.showToast({
-      title: this.data.state,
+      title: "on",
       duration: 1000
     })
-    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minutee, this.data.stop,  ""));
+    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minute,  ""));
 
   },
   fz3: function () {//解除闹钟功能
+    
     if (this.data.judge==1)
+     
     {this.setData({
       state: "off",
       condition1:false
       
     })
     wx.showToast({
-      title: this.data.state,
+      title: "off",
       duration: 1000
     })
-    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minutee, this.data.stop, ""));
+    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minute,""));
   this.setData({
    judge:0
   }) 
@@ -127,14 +128,14 @@ this.tip2()
       title: "ok",
       duration: 1000
     })
-    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minutee, this.data.stop, ""));//调用*1和*2
+    this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minute, ""));//调用*1和*2
   },
 
 question:function()//产生随机问题,两个随机数
 {
   this.setData({
-    rendom1: Math.floor(Math.random() * 50 + 50),
-    rendom2: Math.floor(Math.random() * 50 + 50),
+    rendom1: Math.floor(Math.random() * 1000+ 100),
+    rendom2: Math.floor(Math.random() * 1000+ 100),
     condition1:true
   })
 },
@@ -150,7 +151,7 @@ question:function()//产生随机问题,两个随机数
   },
     judge:function()  //判断答案是否正确
     {
-      if (this.data.sum == this.data.rendom1 +this.data. rendom2)
+      if (this.data.sum == this.data.rendom1 *this.data. rendom2)
     { this.setData({
         judge:1
   }),
@@ -169,7 +170,7 @@ question:function()//产生随机问题,两个随机数
          title: "stop",
          duration: 1000
        })
-     this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minute,this.data.stop, ""));
+     this.sendRequset(this.makeObj(this.data.state, this.data.hour, this.data.minute, ""));
      this.setData({
        stop: 0,
        judge:0
@@ -214,7 +215,7 @@ question:function()//产生随机问题,两个随机数
         "state": sta == "on" ? 210:220,
         "hour": hou,
         "minute": min,
-"stop":sto
+
       },
       success: function (res) {
         console.log(res)
@@ -224,7 +225,7 @@ question:function()//产生随机问题,两个随机数
         })
         if (msg != "") {
           wx.showToast({
-            title: msg,
+            title: " ",
             duration: 2000
           })
           //console.log(i);
@@ -241,7 +242,7 @@ question:function()//产生随机问题,两个随机数
     // 获取数据
     var that = this;
     wx.request({
-      url: 'https://api.heclouds.com/devices/562167282/datapoints?datastream_id=state,hour,minute,stop&limit=1',//limit=1表示最近一次的数据
+      url: 'https://api.heclouds.com/devices/562167282/datapoints?datastream_id=state,hour,minute&limit=1',//limit=1表示最近一次的数据
       header: {
         'content-type': 'application/json',
         'api-key': 'dAvEnSiGWxAyDBKAQ8TtZODJqMM='
@@ -257,7 +258,7 @@ question:function()//产生随机问题,两个随机数
         console.log(res.data.data.datastreams[0].datapoints[0].value),//打印最近数据
           console.log(res.data.data.datastreams[1].datapoints[0].value),
         console.log(res.data.data.datastreams[2].datapoints[0].value),
-          console.log(res.data.data.datastreams[3].datapoints[0].value),
+        
         that.setData({
           hour: res.data.data.datastreams[0].datapoints[0].value,
           minute: res.data.data.datastreams[2].datapoints[0].value,
