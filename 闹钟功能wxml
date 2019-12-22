@@ -1,0 +1,13 @@
+<view class="view1"> 睡你妹啊起来嗨</view>
+
+<view class="view1"> 闹钟不是你想关，想关就能关</view>
+<view class="view1">（使用说明：闹钟响起后仅当回答问题正确时才能关闭闹钟）</view>
+<button class="aq" bindtap="fz1">启用闹钟功能</button>
+<button bindtap="fz3">解除闹钟功能</button>
+<view><input placeholder="时" bindinput="change1"/>
+<input placeholder="分"  bindinput="change2"/></view>
+<view><button bindtap="fz2">发送</button></view>
+<button bindtap="question">查看问题</button>
+<view wx:if="{{condition1}}"> {{rendom1}}*{{rendom2}}=? </view>
+<input placeholder="在此输入答案" bindinput="change3"/>
+<button bindtap="judge">提交答案</button>
