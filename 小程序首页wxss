@@ -1,0 +1,42 @@
+//首页的wxss
+
+page{
+background-color: rgb(248, 243, 210)
+
+
+}
+
+
+
+.style{
+  font-size: 20px;
+  color:black;
+  background:rgb(19, 216, 19)
+  
+}
+swiper {
+      position: absolute;
+      height: 40%;
+      width: 100%;
+      margin-left: 15px
+    }
+
+.view1{
+  background-color: white;
+  width: 85%;
+  height: 25%;
+  margin-left: 15px;
+  margin-top: 15px;
+  padding: 8px;
+  border-radius: 8px
+}
+.one{
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.two{
+  font-size: 15px;
+  color: rgb(125,125, 125)
+}
