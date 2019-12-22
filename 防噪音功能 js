@@ -1,0 +1,161 @@
+//防噪音的js
+Page({
+  data: {
+    condition1: false,
+     condition2: false,
+    status: "off"
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    //加载时就获取后台的数据
+    this.get_data()
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  fz1: function () {//打开噪声
+
+    this.setData({
+     condition1: true,
+      condition2: false,
+      
+    status:"on"
+          })
+        wx.showToast({
+          title: this.data.status,
+          duration: 1000
+        })
+    this.sendRequset(this.makeObj(this.data.status ,""));
+     
+    },
+    fz2: function () {
+
+      this.setData({
+        condition2: true,
+        condition1: false,
+        
+          status:"off"
+        })
+      wx.showToast({
+        title: this.data.status,
+        duration: 1000
+      })
+      this.sendRequset(this.makeObj(this.data.status,  ""));
+    },
+         
+  sendRequset: function (obj) {//发起网络请求
+    wx.request(obj);
+  },
+  makeObj: function ( sta, msg) {
+  
+    var obj = {
+      url: "http://api.heclouds.com/devices/562167282/datapoints?type=3",
+
+      header: {
+        "Content-Type": "application/json",
+        "api-key": "dAvEnSiGWxAyDBKAQ8TtZODJqMM=",
+        //"Host": "api.heclouds.com"
+      },
+      method: "post",
+      data: {
+        
+     
+        "status": sta =="on"?110:120,
+       
+      
+      },
+      success: function (res) {
+        console.log(res)
+       
+        if (msg != "") {
+          wx.showToast({
+            title: "msg",
+            duration: 2000
+          })
+          //console.log(i);
+        }
+        
+      }
+    }
+    
+    return obj;
+  },
+
+  get_data: function () {
+    // 获取数据
+   var that=this;
+    wx.request({
+      url: 'https://api.heclouds.com/devices/562167282/datapoints?datastream_id=status&limit=1',
+      header: {
+        'content-type': 'application/json',
+        'api-key': 'dAvEnSiGWxAyDBKAQ8TtZODJqMM='
+      },
+
+      success: function (res) {
+        console.log(res.data)
+        wx.showToast({
+          title: "OK",
+          duration: 1000
+        })
+    
+    console.log(res.data.data.datastreams[0].datapoints[0].value),
+    
+        that.setData({
+         
+          
+          status: ((res.data.data.datastreams[0].datapoints[0].value) == 110 ? "ON" : "OFF"),
+        })
+     }
+    })
+     }
+})
