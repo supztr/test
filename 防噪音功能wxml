@@ -1,0 +1,12 @@
+//防噪音的wsml
+<veiw class='mediacy'>
+<text>有宝宝在睡觉,请不要逼逼赖赖呦!
+</text>
+</veiw>
+<text>\n</text>
+
+<button class='buttonstyle1' bindtap="fz1">朕承诺不扰乱民生</button>
+<view wx:if="{{condition1}}"> 皇上日理万机也早些歇息吧 </view>
+<text>\n</text>
+<button class='buttonstyle1' bindtap="fz2">朕要睡觉觉了</button>
+<view wx:if="{{condition2}}"> 臣带刀侍卫定护龙体周全 </view>
