@@ -1,0 +1,41 @@
+//app.json
+{
+  "pages": [
+    "pages/fangzao/fangzao",
+"pages/shuinimei/shuinimei",
+"pages/shouye/shouye"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "约束",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "color": "#999999",
+    "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "text": "首页",
+        "iconPath": "pages/images/blue.jpg",
+        "selectedIconPath": "pages/images/red.jpg"
+      },
+      {
+        "pagePath": "pages/fangzao/fangzao",
+        "text": "睡觉觉",
+        "iconPath": "pages/images/blue2.jpg",
+        "selectedIconPath": "pages/images/red2.jpg"
+      },
+      {
+        "pagePath": "pages/shuinimei/shuinimei",
+        "text": "睡你妹",
+        "iconPath": "pages/images/blue3.jpg",
+        "selectedIconPath": "pages/images/red3.jpg"
+      }
+     
+     
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
