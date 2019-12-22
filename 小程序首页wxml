@@ -1,0 +1,13 @@
+//首页的wxml
+<view class="style"><text>约束自己亦是一种美德!</text>
+</view>
+<swiper autoplay="true" indicator-active-color="green" indicator-dots="true">
+<swiper-item><image src="/1.jpg"></image></swiper-item>
+<swiper-item><image src="/2.jpg"></image></swiper-item>
+<swiper-item><image src="/3.jpg"></image></swiper-item>
+</swiper>
+<text>\n</text>
+<text>\n</text>
+<text>\n</text><text>\n</text><text>\n</text><text>\n</text><text>\n</text><text>\n</text><text>\n</text><text>\n</text><text>\n</text>
+<text>\n</text><text>\n</text><text>\n</text>
+<view class="view1"><text class="one">我们的初衷</text><text class="two">总在不经意间打扰别人？被困扰却碍于情面无法指出？约束是一款能自动管理宿舍休息环境的小程序。你想说的，说不出口的，我们都帮你说！现在就开始体验吧！</text></view>
