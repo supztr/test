@@ -18,7 +18,7 @@ U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE); //设置OLED型号
 #define setFont_M u8g.setFont(u8g_font_osb21)
 #define setFont_S u8g.setFont(u8g_font_fixed_v0r)
 #define setFont_SS u8g.setFont(u8g_font_04b_03bn)
-
+ 
 int sensorValue,test=1;
 
 ColorLED strip = ColorLED(NUM, PIN);  //第一个参数表示最大级联ColorLED个数，第二个参数表示使用的端口。
@@ -49,7 +49,7 @@ void TemRead();
 //如果开启下面#define set_time的标志，则按照rtcTime中的时间设置RTC模块中的时间
 #define set_time
 
-DateTime rtcTime = {2019, 12, 19, 18, 21, 11, 20};//时间格式（年，月，日，时，分，秒）
+DateTime rtcTime = {2019, 12, 22, 18, 15, 18,30};//时间格式（年，月，日，时，分，秒）
 
 RTC rtc;
 time_t prevDisplay = 0;
@@ -204,10 +204,12 @@ void loop()                                  //无返回值loop函数
 
   //噪声检测
   
-  if(analogRead(mic_pin)>sensor_voice)//若光强大于设置的最大值
-      {digitalWrite(PIN , HIGH);    //亮灯
-    delay(100);
-    digitalWrite(PIN,LOW);//灭灯
+  if((analogRead(mic_pin)>sensor_voice)&&(open1==110))//若光强大于设置的最大值
+      {
+        strip.setAllLED(0, 255, 0); 
+    strip.show();    //亮灯
+    delay(3000);
+    
     }
   //温湿度
 
